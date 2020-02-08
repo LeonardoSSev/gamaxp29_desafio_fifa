@@ -14,6 +14,11 @@ function fillTable(players) {
   players.forEach(player => {
     const tableRow = fillPlayerRow(player);
 
+    tableRow.setAttribute('data-toggle', 'modal')
+    tableRow.setAttribute('data-target', '#exampleModal')
+
+    tableRow.onclick = openModal(player.data);
+
     tbody.appendChild(tableRow);
   });
 }
@@ -39,4 +44,18 @@ function fillPlayerRow(player) {
   tableRow.appendChild(tdNat);
 
   return tableRow;
+}
+
+function openModal(playerInfo) {
+  return function() {
+    const modalTitle = document.querySelector('#playerNameTitle');
+    const cardTitle = document.querySelector('#playerNameCard')
+    modalTitle.innerHTML = playerInfo.Name
+    cardTitle.innerHTML = playerInfo.Name
+
+    const playerPhoto = document.querySelector('#playerPhoto');
+    playerPhoto.src = playerInfo.Photo;
+    playerPhoto.alt = `Foto do ${playerInfo.Name}`;
+
+  }
 }
